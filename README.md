@@ -6,4 +6,4 @@ This template is for notebooks for you math class, it comes with various enchant
 
 ### thmbox
 
-This template uses a modified [thmbox](https://typst.app/universe/package/thmbox) to remove the modifications on the fonts. You can get it in [](https://github.com/nihilc/typst-thmbox.git)
+This template uses a modified [thmbox](https://typst.app/universe/package/thmbox) to remove the modifications on the fonts. You can get it [here](https://github.com/nihilc/typst-thmbox.git)
