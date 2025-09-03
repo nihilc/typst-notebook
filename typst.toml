@@ -1,0 +1,12 @@
+[package]
+name = "notebook"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["nihlc"]
+license = "MIT"
+description = "Math Template"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
