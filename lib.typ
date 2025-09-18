@@ -145,3 +145,6 @@
   content
 }
 
+// Define custom math functions
+#let mcd = math.op("mcd", limits: true)
+#let mcm = math.op("mcm", limits: true)
