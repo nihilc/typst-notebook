@@ -9,6 +9,18 @@
   mono: "IBM Plex Mono",
   size: 12pt,
 )
+#let default-theme = (
+  light: (
+    fg: rgb("#000000"),
+    bg: rgb("#ffffff"),
+    bg-raw: rgb("#f0f0f0"),
+  ),
+  dark: (
+    fg: rgb("#DCD7BA"),
+    bg: rgb("#1F1F28"),
+    bg-raw: rgb("#2a2a37"),
+  ),
+)
 
 #let notebook(
   lang: "EN",
@@ -21,28 +33,21 @@
   toc-title: "Table of Contents",
   toc-depth: 3,
   theme: "light",
-  theme-light-fg: "#000000",
-  theme-light-bg: "#ffffff",
-  theme-light-raw: "#f0f0f0",
-  theme-dark-fg: "#DCD7BA",
-  theme-dark-bg: "#1F1F28",
-  theme-dark-raw: "#2a2a37",
   content,
 ) = {
   // Variables
+  let font = default-font + font
+
   assert(
     theme == "light" or theme == "dark",
     message: "Theme must be 'light' or 'dark'",
   )
-  let font = default-font + font
-  let fg-color = if theme == "dark" { rgb(theme-dark-fg) } else {
-    rgb(theme-light-fg)
-  }
-  let bg-color = if theme == "dark" { rgb(theme-dark-bg) } else {
-    rgb(theme-light-bg)
-  }
-  let raw-color = if theme == "dark" { rgb(theme-dark-raw) } else {
-    rgb(theme-light-raw)
+
+  // Define if use dark or light theme
+  let colors = if theme == "dark" {
+    default-theme.dark
+  } else {
+    default-theme.light
   }
 
   // Document metadata
@@ -62,17 +67,17 @@
         line(length: 100%)
       }
     },
-    fill: bg-color,
+    fill: colors.bg,
   )
 
   // Text settings
-  set text(lang: lang, font: font.main, size: font.size, fill: fg-color)
+  set text(lang: lang, font: font.main, size: font.size, fill: colors.fg)
   show math.equation: set text(font: font.math, size: font.size)
 
   // Monospace/Code settings
   show raw: set text(font: (name: font.mono, covers: "latin-in-cjk"))
   show raw.where(block: false): body => box(
-    fill: raw-color,
+    fill: colors.bg-raw,
     inset: (x: 3pt, y: 1pt),
     outset: (x: 0pt, y: 2pt),
     radius: 2pt,
@@ -83,7 +88,7 @@
   )
   show raw.where(block: true): body => block(
     width: 100%,
-    fill: raw-color,
+    fill: colors.bg-raw,
     outset: (x: 0pt, y: 4pt),
     inset: (x: 8pt, y: 4pt),
     radius: 2pt,
@@ -100,7 +105,7 @@
   // Other elements settings
   set list(indent: 2pt, marker: "•")
   set enum(indent: 2pt, numbering: n => emph[#n.], full: false)
-  set line(stroke: 1pt + fg-color)
+  set line(stroke: 1pt + colors.fg)
   show link: it => {
     if type(it.dest) == str {
       set text(fill: blue)
