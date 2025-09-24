@@ -106,6 +106,8 @@
   set list(indent: 2pt, marker: "•")
   set enum(indent: 2pt, numbering: n => emph[#n.], full: false)
   set line(stroke: 1pt + colors.fg)
+  set rect(stroke: 1pt + colors.fg)
+  set square(stroke: 1pt + colors.fg)
   show link: it => {
     if type(it.dest) == str {
       set text(fill: blue)
